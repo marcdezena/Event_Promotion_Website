@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSpark — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">ES</div>
+      <span>EventSpark</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-label">Main</span>
+        <div class="nav-item" data-page="dashboard" onclick="goTo('dashboard')"><div class="nav-dot"></div>Dashboard</div>
+        <div class="nav-item" data-page="discover"  onclick="goTo('discover')"><div class="nav-dot"></div>Discover Events</div>
+        <div class="nav-item" data-page="promote"   onclick="openPromote()"><div class="nav-dot"></div>Promote Event</div>
+      </div>
+      <div class="nav-section">
+        <span class="nav-label">Account</span>
+        <div class="nav-item" data-page="profile"  onclick="goTo('profile')"><div class="nav-dot"></div>Profile &amp; Settings</div>
+        <div class="nav-item" data-page="settings" onclick="goTo('settings')"><div class="nav-dot"></div>Settings</div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="goTo('profile')">
+        <div class="user-avatar">MR</div>
+        <div class="user-info">
+          <div class="name">mario r. derama</div>
+          <div class="role">Organizer</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-title">My Dashboard</div>
+      <div class="topbar-actions">
+        <div class="topbar-tab active">Overview</div>
+        <div class="topbar-tab">Analytics</div>
+        <div class="icon-btn" title="Notifications">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="icon-btn" onclick="goTo('settings')" title="Settings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="page-content">
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-head"><div class="stat-label">Total Events</div><div class="stat-pip"></div></div>
+          <div class="stat-value">0</div><div class="stat-sub">No events yet</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-head"><div class="stat-label">Attendees</div><div class="stat-pip pip-green"></div></div>
+          <div class="stat-value">0</div><div class="stat-sub">Registered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-head"><div class="stat-label">Active &amp; Live</div><div class="stat-pip pip-blue"></div></div>
+          <div class="stat-value">0</div><div class="stat-sub">Currently running</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-head"><div class="stat-label">Promotion Days</div><div class="stat-pip pip-orange"></div></div>
+          <div class="stat-value">0</div><div class="stat-sub">Active campaigns</div>
+        </div>
+      </div>
+
+      <!-- Your events -->
+      <div class="section-header">
+        <h2>Your Events</h2>
+        <button class="btn-primary" style="width:auto;" onclick="openPromote()">+ Create Event</button>
+      </div>
+      <div class="empty-state">
+        <div class="empty-line"></div>
+        <h3>No events yet</h3>
+        <p>You haven't created any events. Start by promoting your first event.</p>
+        <button class="btn-primary" style="width:auto;margin:0 auto;" onclick="openPromote()">Create your first event</button>
+      </div>
+
+    </div>
+  </div><!-- /main-content -->
+</div><!-- /app-shell -->
+
+<!-- ── MODAL: Event Detail ── -->
+<div class="modal-overlay" id="modal-event">
+  <div class="modal">
+    <div class="event-detail-img t1" id="modal-event-img">
+      <span class="event-detail-img-label" id="modal-event-cat">Design</span>
+    </div>
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-event-title">Design Leadership Summit 2026</h3>
+        <p>Organized by Design Leadership Network</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-event')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-row"><div class="detail-icon">Date</div><div class="detail-text"><strong>Date &amp; Time</strong><span>Oct 12, 2026 · 1:00 PM – 6:00 PM</span></div></div>
+      <div class="detail-row"><div class="detail-icon">Loc</div><div class="detail-text"><strong>Location</strong><span>Innovate Center, San Francisco, CA</span></div></div>
+      <div class="detail-row"><div class="detail-icon">Adm</div><div class="detail-text"><strong>Admission</strong><span>Free Entry — Registration Required</span></div></div>
+      <div class="about-box"><strong>About This Event</strong><p>Join the foremost leaders in UX and digital design for a full day of talks, panels, and workshops led by industry innovators in product design and design leadership. Networking included.</p></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-event')">Close</button>
+      <button class="btn-primary" style="width:auto;">Register for Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: Promote Event ── -->
+<div class="modal-overlay" id="modal-promote">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="promote-banner" style="flex:1;margin-right:10px;">
+        <h3>Create Events in Dashboard</h3>
+        <p>Use the dashboard to create events, then promote them across EventSpark.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-promote')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Event Title</label><input type="text" class="form-input" placeholder="e.g. Tech Conf 2026"></div>
+        <div class="form-group"><label class="form-label">Event Type</label><select class="form-select"><option>Select type…</option><option>Conference</option><option>Workshop</option><option>Networking</option><option>Concert</option><option>Sports</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date &amp; Time</label><input type="datetime-local" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Location</label><input type="text" class="form-input" placeholder="City, Venue"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Cover Image URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Facebook URL</label><input type="url" class="form-input" placeholder="https://facebook.com/…"></div>
+        <div class="form-group"><label class="form-label">Ticket URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Describe your event…"></textarea></div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <input type="checkbox" id="terms-cb" style="accent-color:var(--orange);">
+        <label for="terms-cb" style="font-size:12.5px;color:var(--text-muted);cursor:pointer;">I agree with the Terms &amp; Conditions for EventSpark promotion</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-promote')">Cancel</button>
+      <button class="btn-secondary" style="width:auto;" onclick="goTo('dashboard')">Create in Dashboard</button>
+      <button class="btn-primary" style="width:auto;" onclick="submitEvent()">Submit Event</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>setActiveNav('dashboard');</script>
+</body>
+</html>

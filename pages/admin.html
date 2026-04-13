@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSpark — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">ES</div>
+      <span>EventSpark</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-label">Main</span>
+        <div class="nav-item" data-page="dashboard" onclick="goTo('dashboard')"><div class="nav-dot"></div>Dashboard</div>
+        <div class="nav-item" data-page="discover"  onclick="goTo('discover')"><div class="nav-dot"></div>Discover Events</div>
+        <div class="nav-item" data-page="promote"   onclick="openPromote()"><div class="nav-dot"></div>Promote Event</div>
+      </div>
+      <div class="nav-section">
+        <span class="nav-label">Account</span>
+        <div class="nav-item" data-page="profile"  onclick="goTo('profile')"><div class="nav-dot"></div>Profile &amp; Settings</div>
+        <div class="nav-item" data-page="settings" onclick="goTo('settings')"><div class="nav-dot"></div>Settings</div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="goTo('profile')">
+        <div class="user-avatar">MR</div>
+        <div class="user-info">
+          <div class="name">mario r. derama</div>
+          <div class="role">Organizer</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">Admin Access</div>
+      <div class="topbar-actions">
+        <div class="icon-btn" title="Notifications">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- Gate (shown first) -->
+      <div id="admin-gate">
+        <div class="admin-access-card">
+          <div class="admin-pip"><div class="admin-pip-inner"></div></div>
+          <h3>Admin Access</h3>
+          <p>mario@eventspark.io<br>Admin access to all events and analytics for all organizers in the platform.</p>
+          <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
+            <button class="btn-primary full" onclick="unlockAdmin()">Enter Admin Dashboard</button>
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-muted);">
+              <input type="checkbox" id="admin-cb" style="margin-top:2px;flex-shrink:0;accent-color:var(--orange);">
+              <label for="admin-cb" style="cursor:pointer;line-height:1.5;">Admin functionalities and permissions may apply only to organizer events</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin dashboard (hidden until unlocked) -->
+      <div id="admin-dashboard" style="display:none;">
+        <div class="section-header" style="margin-bottom:22px;">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <p style="font-size:12.5px;color:var(--text-muted);">Review and moderate all listed events</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-ghost">Export</button>
+            <button class="btn-primary" style="width:auto;" onclick="openPromote()">+ Add Event</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="admin-stats">
+          <div class="admin-stat orange"><div class="num" id="stat-pending">3</div><div class="lbl">Pending</div></div>
+          <div class="admin-stat"><div class="num" id="stat-approved">0</div><div class="lbl">Approved</div></div>
+          <div class="admin-stat green"><div class="num" id="stat-users">3,456</div><div class="lbl">Users</div></div>
+          <div class="admin-stat red"><div class="num" id="stat-removed">0</div><div class="lbl">Removed</div></div>
+        </div>
+
+        <!-- Events table -->
+        <div class="admin-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Organizer</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Design Leadership Summit 2026</strong></td>
+                <td style="color:var(--text-muted)">Design Leadership Network</td>
+                <td style="color:var(--text-muted)">Oct 12, 2026</td>
+                <td class="status-cell"><span class="badge badge-orange">Pending</span></td>
+                <td class="action-cell">
+                  <div style="display:flex;gap:6px;">
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--green);border-color:rgba(34,197,94,.3);" onclick="approveEvent(this)">Approve</button>
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--red);border-color:rgba(239,68,68,.3);">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Neon Nights Miami</strong></td>
+                <td style="color:var(--text-muted)">NightLife Collective</td>
+                <td style="color:var(--text-muted)">Nov 3, 2026</td>
+                <td class="status-cell"><span class="badge badge-green">Approved</span></td>
+                <td class="action-cell">
+                  <div style="display:flex;gap:6px;">
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;">View</button>
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--red);border-color:rgba(239,68,68,.3);">Remove</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Founders &amp; Coffee Morning</strong></td>
+                <td style="color:var(--text-muted)">StartupAustin</td>
+                <td style="color:var(--text-muted)">Sep 28, 2026</td>
+                <td class="status-cell"><span class="badge badge-orange">Pending</span></td>
+                <td class="action-cell">
+                  <div style="display:flex;gap:6px;">
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--green);border-color:rgba(34,197,94,.3);" onclick="approveEvent(this)">Approve</button>
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--red);border-color:rgba(239,68,68,.3);">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>AI &amp; Future of Work Conference</strong></td>
+                <td style="color:var(--text-muted)">FutureWork Labs</td>
+                <td style="color:var(--text-muted)">Dec 5, 2026</td>
+                <td class="status-cell"><span class="badge badge-orange">Pending</span></td>
+                <td class="action-cell">
+                  <div style="display:flex;gap:6px;">
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--green);border-color:rgba(34,197,94,.3);" onclick="approveEvent(this)">Approve</button>
+                    <button class="btn-ghost" style="font-size:11.5px;padding:4px 10px;color:var(--red);border-color:rgba(239,68,68,.3);">Reject</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="text-align:center;padding:14px;font-size:12px;color:var(--text-faint);">Showing all events · Last updated just now</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: Promote ── -->
+<div class="modal-overlay" id="modal-promote">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="promote-banner" style="flex:1;margin-right:10px;">
+        <h3>Create Events in Dashboard</h3>
+        <p>Use the dashboard to create events, then promote them across EventSpark.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-promote')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Event Title</label><input type="text" class="form-input" placeholder="e.g. Tech Conf 2026"></div>
+        <div class="form-group"><label class="form-label">Event Type</label><select class="form-select"><option>Select type…</option><option>Conference</option><option>Workshop</option><option>Networking</option><option>Concert</option><option>Sports</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date &amp; Time</label><input type="datetime-local" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Location</label><input type="text" class="form-input" placeholder="City, Venue"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Cover Image URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Facebook URL</label><input type="url" class="form-input" placeholder="https://facebook.com/…"></div>
+        <div class="form-group"><label class="form-label">Ticket URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Describe your event…"></textarea></div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <input type="checkbox" id="terms-cb" style="accent-color:var(--orange);">
+        <label for="terms-cb" style="font-size:12.5px;color:var(--text-muted);cursor:pointer;">I agree with the Terms &amp; Conditions for EventSpark promotion</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-promote')">Cancel</button>
+      <button class="btn-secondary" style="width:auto;" onclick="goTo('dashboard')">Create in Dashboard</button>
+      <button class="btn-primary" style="width:auto;" onclick="submitEvent()">Submit Event</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>setActiveNav('admin');</script>
+</body>
+</html>

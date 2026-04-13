@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSpark — Discover Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">ES</div>
+      <span>EventSpark</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-label">Main</span>
+        <div class="nav-item" data-page="dashboard" onclick="goTo('dashboard')"><div class="nav-dot"></div>Dashboard</div>
+        <div class="nav-item" data-page="discover"  onclick="goTo('discover')"><div class="nav-dot"></div>Discover Events</div>
+        <div class="nav-item" data-page="promote"   onclick="openPromote()"><div class="nav-dot"></div>Promote Event</div>
+      </div>
+      <div class="nav-section">
+        <span class="nav-label">Account</span>
+        <div class="nav-item" data-page="profile"  onclick="goTo('profile')"><div class="nav-dot"></div>Profile &amp; Settings</div>
+        <div class="nav-item" data-page="settings" onclick="goTo('settings')"><div class="nav-dot"></div>Settings</div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="goTo('profile')">
+        <div class="user-avatar">MR</div>
+        <div class="user-info">
+          <div class="name">mario r. derama</div>
+          <div class="role">Organizer</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-title">Discover Events</div>
+      <div class="topbar-actions">
+        <div class="search-bar">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          &nbsp;Search events…
+        </div>
+        <div class="topbar-tab active">All</div>
+        <div class="topbar-tab">Upcoming</div>
+        <div class="topbar-tab">Near Me</div>
+        <div class="icon-btn" title="Notifications">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- Category filters -->
+      <div class="filter-bar">
+        <span style="font-size:11px;font-weight:600;color:var(--text-faint);text-transform:uppercase;letter-spacing:.5px;">Filter</span>
+        <div class="filter-chip active" data-filter="All"    onclick="filterClick(this)">All</div>
+        <div class="filter-chip"        data-filter="Design" onclick="filterClick(this)">Design</div>
+        <div class="filter-chip"        data-filter="Music"  onclick="filterClick(this)">Music</div>
+        <div class="filter-chip"        data-filter="Social" onclick="filterClick(this)">Social</div>
+        <div class="filter-chip"        data-filter="Tech"   onclick="filterClick(this)">Tech</div>
+        <div class="filter-chip"        data-filter="Sports" onclick="filterClick(this)">Sports</div>
+        <div class="filter-chip"        data-filter="Food"   onclick="filterClick(this)">Food</div>
+      </div>
+
+      <!-- Events grid -->
+      <div class="events-grid">
+        <div class="event-card" onclick="openEventDetail('design')">
+          <div class="event-thumb t1"><span class="event-thumb-label">Design</span><div class="event-badge">Design</div></div>
+          <div class="event-body">
+            <div class="event-title">Design Leadership Summit 2026</div>
+            <div class="event-meta">
+              <div class="event-meta-row"><div class="meta-dot"></div>Oct 12, 2026 · 1:00 PM</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Innovate Center, San Francisco</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Design Leadership Network</div>
+            </div>
+          </div>
+          <div class="event-footer"><span class="event-attendees">124 attending</span><button class="event-explore-btn">Explore</button></div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail('music')">
+          <div class="event-thumb t2"><span class="event-thumb-label">Music</span><div class="event-badge">Music</div></div>
+          <div class="event-body">
+            <div class="event-title">Neon Nights Miami</div>
+            <div class="event-meta">
+              <div class="event-meta-row"><div class="meta-dot"></div>Nov 3, 2026 · 9:00 PM</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Wynwood Arts District, Miami</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>NightLife Collective</div>
+            </div>
+          </div>
+          <div class="event-footer"><span class="event-attendees">342 attending</span><button class="event-explore-btn">Explore</button></div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail('coffee')">
+          <div class="event-thumb t3"><span class="event-thumb-label">Social</span><div class="event-badge">Social</div></div>
+          <div class="event-body">
+            <div class="event-title">Founders &amp; Coffee Morning</div>
+            <div class="event-meta">
+              <div class="event-meta-row"><div class="meta-dot"></div>Sep 28, 2026 · 7:00 AM</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>The Hub, Austin TX</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>StartupAustin</div>
+            </div>
+          </div>
+          <div class="event-footer"><span class="event-attendees">58 attending</span><button class="event-explore-btn">Explore</button></div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail('ai')">
+          <div class="event-thumb t4"><span class="event-thumb-label">Tech</span><div class="event-badge">Tech</div></div>
+          <div class="event-body">
+            <div class="event-title">AI &amp; Future of Work Conference</div>
+            <div class="event-meta">
+              <div class="event-meta-row"><div class="meta-dot"></div>Dec 5, 2026 · 10:00 AM</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Tech Hub, Seattle WA</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>FutureWork Labs</div>
+            </div>
+          </div>
+          <div class="event-footer"><span class="event-attendees">210 attending</span><button class="event-explore-btn">Explore</button></div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail('marathon')">
+          <div class="event-thumb t5"><span class="event-thumb-label">Sports</span><div class="event-badge">Sports</div></div>
+          <div class="event-body">
+            <div class="event-title">City Marathon 2026 — Open Registration</div>
+            <div class="event-meta">
+              <div class="event-meta-row"><div class="meta-dot"></div>Jan 18, 2027 · 6:00 AM</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Downtown, Chicago IL</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Chicago Running Club</div>
+            </div>
+          </div>
+          <div class="event-footer"><span class="event-attendees">890 attending</span><button class="event-explore-btn">Explore</button></div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail('food')">
+          <div class="event-thumb t6"><span class="event-thumb-label">Food</span><div class="event-badge">Food</div></div>
+          <div class="event-body">
+            <div class="event-title">Street Food Fiesta — Summer Edition</div>
+            <div class="event-meta">
+              <div class="event-meta-row"><div class="meta-dot"></div>Aug 15, 2026 · 12:00 PM</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>Grand Park, Los Angeles</div>
+              <div class="event-meta-row"><div class="meta-dot"></div>LA Eats</div>
+            </div>
+          </div>
+          <div class="event-footer"><span class="event-attendees">670 attending</span><button class="event-explore-btn">Explore</button></div>
+        </div>
+      </div>
+
+      <!-- Calendar -->
+      <div style="margin-top:32px;">
+        <div class="section-header"><h2>Event Calendar</h2></div>
+        <div class="calendar-widget">
+          <div class="cal-header">
+            <div class="cal-header-left">
+              <h3 id="cal-title"></h3>
+              <span id="cal-subtitle"></span>
+            </div>
+            <div class="cal-nav">
+              <button onclick="CAL.nav(-1)">&#8249;</button>
+              <button onclick="CAL.nav(0)">Today</button>
+              <button onclick="CAL.nav(1)">&#8250;</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div id="events-panel-container"></div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /main-content -->
+</div><!-- /app-shell -->
+
+<!-- ── MODAL: Event Detail ── -->
+<div class="modal-overlay" id="modal-event">
+  <div class="modal">
+    <div class="event-detail-img t1" id="modal-event-img">
+      <span class="event-detail-img-label" id="modal-event-cat">Design</span>
+    </div>
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-event-title">Design Leadership Summit 2026</h3>
+        <p>Organized by Design Leadership Network</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-event')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-row"><div class="detail-icon">Date</div><div class="detail-text"><strong>Date &amp; Time</strong><span>Oct 12, 2026 · 1:00 PM – 6:00 PM</span></div></div>
+      <div class="detail-row"><div class="detail-icon">Loc</div><div class="detail-text"><strong>Location</strong><span>Innovate Center, San Francisco, CA</span></div></div>
+      <div class="detail-row"><div class="detail-icon">Adm</div><div class="detail-text"><strong>Admission</strong><span>Free Entry — Registration Required</span></div></div>
+      <div class="about-box"><strong>About This Event</strong><p>Join the foremost leaders in UX and digital design for a full day of talks, panels, and workshops led by industry innovators in product design and design leadership. Networking included.</p></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-event')">Close</button>
+      <button class="btn-primary" style="width:auto;">Register for Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: Promote Event ── -->
+<div class="modal-overlay" id="modal-promote">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="promote-banner" style="flex:1;margin-right:10px;">
+        <h3>Create Events in Dashboard</h3>
+        <p>Use the dashboard to create events, then promote them across EventSpark.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-promote')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Event Title</label><input type="text" class="form-input" placeholder="e.g. Tech Conf 2026"></div>
+        <div class="form-group"><label class="form-label">Event Type</label><select class="form-select"><option>Select type…</option><option>Conference</option><option>Workshop</option><option>Networking</option><option>Concert</option><option>Sports</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date &amp; Time</label><input type="datetime-local" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Location</label><input type="text" class="form-input" placeholder="City, Venue"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Cover Image URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Facebook URL</label><input type="url" class="form-input" placeholder="https://facebook.com/…"></div>
+        <div class="form-group"><label class="form-label">Ticket URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Describe your event…"></textarea></div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <input type="checkbox" id="terms-cb" style="accent-color:var(--orange);">
+        <label for="terms-cb" style="font-size:12.5px;color:var(--text-muted);cursor:pointer;">I agree with the Terms &amp; Conditions for EventSpark promotion</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-promote')">Cancel</button>
+      <button class="btn-secondary" style="width:auto;" onclick="goTo('dashboard')">Create in Dashboard</button>
+      <button class="btn-primary" style="width:auto;" onclick="submitEvent()">Submit Event</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  setActiveNav('discover');
+  CAL.render();
+</script>
+</body>
+</html>

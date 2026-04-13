@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSpark — Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .settings-grid { display:grid; grid-template-columns:200px 1fr; gap:24px; align-items:start; }
+    .settings-menu { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; position:sticky; top:80px; }
+    .settings-menu-item { padding:11px 16px; font-size:13.5px; font-weight:500; cursor:pointer; color:var(--text-muted); border-left:2px solid transparent; transition:all .15s; }
+    .settings-menu-item:hover  { color:var(--text); background:var(--surface-2); }
+    .settings-menu-item.active { color:var(--orange); border-left-color:var(--orange); background:var(--orange-dim); font-weight:600; }
+    .settings-panel { display:none; }
+    .settings-panel.active { display:block; animation:riseIn .25s ease; }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">ES</div>
+      <span>EventSpark</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-label">Main</span>
+        <div class="nav-item" data-page="dashboard" onclick="goTo('dashboard')"><div class="nav-dot"></div>Dashboard</div>
+        <div class="nav-item" data-page="discover"  onclick="goTo('discover')"><div class="nav-dot"></div>Discover Events</div>
+        <div class="nav-item" data-page="promote"   onclick="openPromote()"><div class="nav-dot"></div>Promote Event</div>
+      </div>
+      <div class="nav-section">
+        <span class="nav-label">Account</span>
+        <div class="nav-item" data-page="profile"  onclick="goTo('profile')"><div class="nav-dot"></div>Profile &amp; Settings</div>
+        <div class="nav-item" data-page="settings" onclick="goTo('settings')"><div class="nav-dot"></div>Settings</div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="goTo('profile')">
+        <div class="user-avatar">MR</div>
+        <div class="user-info">
+          <div class="name">mario r. derama</div>
+          <div class="role">Organizer</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">Settings</div>
+      <div class="topbar-actions">
+        <button class="btn-primary" style="width:auto;" onclick="showToast('Settings saved ✓')">Save Changes</button>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div class="settings-grid">
+
+        <!-- Left menu -->
+        <div class="settings-menu">
+          <div class="settings-menu-item active" onclick="showPanel('general', this)">General</div>
+          <div class="settings-menu-item" onclick="showPanel('notifications', this)">Notifications</div>
+          <div class="settings-menu-item" onclick="showPanel('security', this)">Security</div>
+          <div class="settings-menu-item" onclick="showPanel('admin', this)">Admin control</div>
+          <div class="settings-menu-item" onclick="showPanel('integrations', this)">Integrations</div>
+          <div class="settings-menu-item" style="color:var(--red);border-top:1px solid var(--border);" onclick="showPanel('danger', this)">Danger Zone</div>
+        </div>
+
+        <!-- Panels -->
+        <div>
+
+          <!-- General -->
+          <div class="settings-panel active" id="panel-general">
+            <div class="settings-section">
+              <h4>Personal Information</h4>
+              <div class="form-row" style="margin-bottom:13px;">
+                <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" value="mario r."></div>
+                <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" value="derama"></div>
+              </div>
+              <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" value="mario@eventspark.io"></div>
+              <div class="form-group"><label class="form-label">Bio</label><textarea class="form-textarea" placeholder="Tell us about yourself…"></textarea></div>
+            </div>
+            <div class="settings-section">
+              <h4>Appearance</h4>
+              <div class="settings-row">
+                <div class="settings-row-info"><strong>Theme</strong><span>Choose your preferred color scheme</span></div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <button class="btn-secondary" type="button" data-theme-toggle-text onclick="toggleTheme()">Switch to Light Mode</button>
+                  <span class="chip" data-theme-chip>Dark</span>
+                </div>
+              </div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Language</strong><span>Interface language</span></div><span class="chip">English (US)</span></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Timezone</strong><span>Used for event times</span></div><span class="chip">UTC-8</span></div>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="settings-panel" id="panel-notifications">
+            <div class="settings-section">
+              <h4>Email Notifications</h4>
+              <div class="settings-row"><div class="settings-row-info"><strong>New Bookings</strong><span>When someone registers for your event</span></div><label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Event Reminders</strong><span>24h before your events start</span></div><label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Weekly Digest</strong><span>Summary of your events &amp; analytics</span></div><label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Marketing Emails</strong><span>Tips and feature announcements</span></div><label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label></div>
+            </div>
+            <div class="settings-section">
+              <h4>Push Notifications</h4>
+              <div class="settings-row"><div class="settings-row-info"><strong>Browser Push</strong><span>Real-time alerts in your browser</span></div><label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>SMS Reminders</strong><span>Text message alerts for events</span></div><label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label></div>
+            </div>
+          </div>
+          
+
+          <!-- Security -->
+          <div class="settings-panel" id="panel-security">
+            <div class="settings-section">
+              <h4>Password</h4>
+              <div class="form-group"><label class="form-label">Current Password</label><input type="password" class="form-input" placeholder="••••••••"></div>
+              <div class="form-row">
+                <div class="form-group"><label class="form-label">New Password</label><input type="password" class="form-input" placeholder="••••••••"></div>
+                <div class="form-group"><label class="form-label">Confirm New</label><input type="password" class="form-input" placeholder="••••••••"></div>
+              </div>
+              <button class="btn-secondary" onclick="showToast('Password updated ✓')">Update Password</button>
+            </div>
+            <div class="settings-section">
+              <h4>Two-Factor Authentication</h4>
+              <div class="settings-row"><div class="settings-row-info"><strong>Authenticator App</strong><span>Use an app like Google Authenticator</span></div><button class="btn-primary" style="width:auto;font-size:12px;padding:7px 14px;">Enable</button></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>SMS Verification</strong><span>Receive codes via text message</span></div><button class="btn-secondary" style="font-size:12px;padding:7px 14px;">Setup</button></div>
+            </div>
+            <div class="settings-section">
+              <h4>Active Sessions</h4>
+              <div class="settings-row"><div class="settings-row-info"><strong>Chrome — macOS</strong><span>Current session · San Francisco, CA</span></div><span class="badge badge-green">Active</span></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Safari — iPhone</strong><span>2 days ago · San Francisco, CA</span></div><button class="btn-ghost" style="font-size:12px;color:var(--red);">Revoke</button></div>
+            </div>
+          </div>
+
+          <!-- Admin control -->
+          <div class="settings-panel" id="panel-admin">
+            <div class="settings-section">
+              <h4>Admin Control</h4>
+              <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;max-width:680px;">Admin access is now managed from the Settings page. Open the admin dashboard only when you need access to event moderation and analytics.</p>
+              <div class="settings-row">
+                <div class="settings-row-info"><strong>Admin Dashboard</strong><span>Access full event and organizer controls</span></div>
+                <button class="btn-primary" style="width:auto;" onclick="goTo('admin')">Open Admin Access</button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info"><strong>Availability</strong><span>Only visible to authorized administrators</span></div>
+                <span class="chip chip-orange">Available</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrations -->
+          <div class="settings-panel" id="panel-integrations">
+            <div class="settings-section">
+              <h4>Connected Apps</h4>
+              <div class="settings-row"><div class="settings-row-info"><strong>Google Calendar</strong><span>Sync your events automatically</span></div><button class="btn-secondary" style="font-size:12px;padding:7px 14px;">Connect</button></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Stripe</strong><span>Accept payments for ticket sales</span></div><button class="btn-secondary" style="font-size:12px;padding:7px 14px;">Connect</button></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Zapier</strong><span>Automate your workflow</span></div><button class="btn-primary" style="width:auto;font-size:12px;padding:7px 14px;">Connected</button></div>
+              <div class="settings-row"><div class="settings-row-info"><strong>Slack</strong><span>Get booking notifications in Slack</span></div><button class="btn-secondary" style="font-size:12px;padding:7px 14px;">Connect</button></div>
+            </div>
+          </div>
+
+          <!-- Danger Zone -->
+          <div class="settings-panel" id="panel-danger">
+            <div class="settings-section" style="border-color:rgba(239,68,68,.25);">
+              <h4 style="color:var(--red);">Danger Zone</h4>
+              <div class="settings-row">
+                <div class="settings-row-info"><strong>Export Data</strong><span>Download all your events and account data</span></div>
+                <button class="btn-ghost" style="font-size:12px;">Export</button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info"><strong>Deactivate Account</strong><span>Temporarily disable your account</span></div>
+                <button class="btn-ghost" style="font-size:12px;color:var(--red);border-color:rgba(239,68,68,.35);">Deactivate</button>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info"><strong>Delete Account</strong><span>Permanently remove all your data. This cannot be undone.</span></div>
+                <button class="btn-ghost" style="font-size:12px;color:var(--red);border-color:rgba(239,68,68,.35);">Delete Account</button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /panels -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: Promote ── -->
+<div class="modal-overlay" id="modal-promote">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="promote-banner" style="flex:1;margin-right:10px;">
+        <h3>Create Events in Dashboard</h3>
+        <p>Use the dashboard to create events, then promote them across EventSpark.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-promote')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Event Title</label><input type="text" class="form-input" placeholder="e.g. Tech Conf 2026"></div>
+        <div class="form-group"><label class="form-label">Event Type</label><select class="form-select"><option>Select type…</option><option>Conference</option><option>Workshop</option><option>Networking</option><option>Concert</option><option>Sports</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date &amp; Time</label><input type="datetime-local" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Location</label><input type="text" class="form-input" placeholder="City, Venue"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Cover Image URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Facebook URL</label><input type="url" class="form-input" placeholder="https://facebook.com/…"></div>
+        <div class="form-group"><label class="form-label">Ticket URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Describe your event…"></textarea></div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <input type="checkbox" id="terms-cb" style="accent-color:var(--orange);">
+        <label for="terms-cb" style="font-size:12.5px;color:var(--text-muted);cursor:pointer;">I agree with the Terms &amp; Conditions for EventSpark promotion</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-promote')">Cancel</button>
+      <button class="btn-secondary" style="width:auto;" onclick="goTo('dashboard')">Create in Dashboard</button>
+      <button class="btn-primary" style="width:auto;" onclick="submitEvent()">Submit Event</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  setActiveNav('settings');
+  function showPanel(id, menuItem) {
+    document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.settings-menu-item').forEach(m => m.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    menuItem.classList.add('active');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSpark — Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">ES</div>
+      <span>EventSpark</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-label">Main</span>
+        <div class="nav-item" data-page="dashboard" onclick="goTo('dashboard')"><div class="nav-dot"></div>Dashboard</div>
+        <div class="nav-item" data-page="discover"  onclick="goTo('discover')"><div class="nav-dot"></div>Discover Events</div>
+        <div class="nav-item" data-page="promote"   onclick="openPromote()"><div class="nav-dot"></div>Promote Event</div>
+      </div>
+      <div class="nav-section">
+        <span class="nav-label">Account</span>
+        <div class="nav-item" data-page="profile"  onclick="goTo('profile')"><div class="nav-dot"></div>Profile &amp; Settings</div>
+        <div class="nav-item" data-page="settings" onclick="goTo('settings')"><div class="nav-dot"></div>Settings</div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="goTo('profile')">
+        <div class="user-avatar">MR</div>
+        <div class="user-info">
+          <div class="name">mario r. derama</div>
+          <div class="role">Organizer</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">Profile &amp; Settings</div>
+      <div class="topbar-actions">
+        <span style="font-size:12px;color:var(--text-faint);">Manage your account</span>
+        <div class="icon-btn" title="Notifications">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content">
+      <div style="display:grid;grid-template-columns:1fr 310px;gap:18px;align-items:start;">
+
+        <!-- Left column -->
+        <div>
+          <!-- Profile banner -->
+          <div class="profile-banner">
+            <div class="profile-avatar">MR</div>
+            <div class="profile-info">
+              <h3>mario r. derama</h3>
+              <p>mario@eventspark.io</p>
+            </div>
+            <button class="profile-edit-btn" onclick="openEditProfile()" title="Edit Profile">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+          </div>
+
+          <!-- Stats -->
+          <div class="profile-stats">
+            <div class="profile-stat"><div class="val">0</div><div class="lbl">Events Created</div></div>
+            <div class="profile-stat"><div class="val">0</div><div class="lbl">Events Attended</div></div>
+            <div class="profile-stat highlight"><div class="val">Mar 2026</div><div class="lbl">Member Since</div></div>
+          </div>
+
+          <!-- Account Settings -->
+          <div class="settings-section">
+            <h4>Account Settings</h4>
+            <div class="settings-row">
+              <div class="settings-row-info"><strong>Account Type</strong><span>Standard — free self-serve</span></div>
+              <span class="chip chip-orange">Free</span>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info"><strong>Notifications</strong><span>Event reminders and updates</span></div>
+              <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info"><strong>Email Digest</strong><span>Weekly summary via email</span></div>
+              <label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-info"><strong>Table Access</strong><span>Link your organizer account</span></div>
+              <button class="btn-primary" style="width:auto;font-size:12px;padding:6px 14px;">Learn More</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div>
+          <div class="settings-section">
+            <h4>Appearance</h4>
+            <div class="settings-row">
+              <div class="settings-row-info"><strong>Theme</strong><span>Dark mode</span></div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button class="btn-secondary" type="button" data-theme-toggle-text onclick="toggleTheme()">Switch to Light Mode</button>
+                <span class="chip" data-theme-chip>Dark</span>
+              </div>
+            </div>
+            <div class="settings-row"><div class="settings-row-info"><strong>Language</strong><span>English (US)</span></div><span class="chip">EN</span></div>
+          </div>
+          <div class="settings-section">
+            <h4>Security</h4>
+            <div class="settings-row"><div class="settings-row-info"><strong>Password</strong><span>Last changed 3 months ago</span></div><button class="btn-ghost" style="font-size:12px;">Change</button></div>
+            </div>
+          <div class="settings-section" style="border-color:rgba(239,68,68,.2);">
+            <h4 style="color:var(--red);">Danger Zone</h4>
+            <div class="settings-row"><div class="settings-row-info"><strong>Delete Account</strong><span>Permanently remove your data</span></div><button class="btn-ghost" style="color:var(--red);border-color:rgba(239,68,68,.35);font-size:12px;">Delete</button></div>
+          </div>
+          <!-- Sign out -->
+          <button class="btn-ghost" style="width:100%;justify-content:center;margin-top:4px;" onclick="goTo('login')">Sign Out</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: Edit Profile ── -->
+<div class="modal-overlay" id="modal-editprofile">
+  <div class="modal">
+    <div class="modal-header">
+      <div><h3>Edit Profile</h3><p>Update your personal information</p></div>
+      <button class="modal-close" onclick="closeModal('modal-editprofile')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" value="mario r."></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" value="derama"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" value="mario@eventspark.io"></div>
+      <div class="form-group"><label class="form-label">Bio</label><textarea class="form-textarea" placeholder="Tell us about yourself…"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-editprofile')">Cancel</button>
+      <button class="btn-primary" style="width:auto;" onclick="closeModal('modal-editprofile');showToast('Profile updated ✓')">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: Promote ── -->
+<div class="modal-overlay" id="modal-promote">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="promote-banner" style="flex:1;margin-right:10px;">
+        <h3>Create Events in Dashboard</h3>
+        <p>Use the dashboard to create events, then promote them across EventSpark.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-promote')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Event Title</label><input type="text" class="form-input" placeholder="e.g. Tech Conf 2026"></div>
+        <div class="form-group"><label class="form-label">Event Type</label><select class="form-select"><option>Select type…</option><option>Conference</option><option>Workshop</option><option>Networking</option><option>Concert</option><option>Sports</option><option>Other</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date &amp; Time</label><input type="datetime-local" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Location</label><input type="text" class="form-input" placeholder="City, Venue"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Cover Image URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Facebook URL</label><input type="url" class="form-input" placeholder="https://facebook.com/…"></div>
+        <div class="form-group"><label class="form-label">Ticket URL</label><input type="url" class="form-input" placeholder="https://…"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Describe your event…"></textarea></div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <input type="checkbox" id="terms-cb" style="accent-color:var(--orange);">
+        <label for="terms-cb" style="font-size:12.5px;color:var(--text-muted);cursor:pointer;">I agree with the Terms &amp; Conditions for EventSpark promotion</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-promote')">Cancel</button>
+      <button class="btn-secondary" style="width:auto;" onclick="goTo('dashboard')">Create in Dashboard</button>
+      <button class="btn-primary" style="width:auto;" onclick="submitEvent()">Submit Event</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>setActiveNav('profile');</script>
+</body>
+</html>
